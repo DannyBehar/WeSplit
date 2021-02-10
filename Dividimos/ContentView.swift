@@ -10,13 +10,18 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var checkAmount = ""
-    @State private var numberOfPeople = ""
+    @State private var numberOfPeople = "2"
     @State private var tipPercentage = 2
     
     let tipPercentages = [10, 15, 20, 25, 0]
     
     var totalPerPerson: Double {
-        let numberPerson = Double(numberOfPeople) ?? 0
+        let numberPerson = Double(numberOfPeople) ?? 1
+        
+        guard numberPerson > 0 else {
+            return 0
+        }
+        
 //        let peopleCount = Double(numberPerson + 2)
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
@@ -29,6 +34,11 @@ struct ContentView: View {
     }
     
     var totalCheck: Double {
+        let numberPerson = Double(numberOfPeople) ?? 1
+        
+        guard numberPerson > 0 else {
+            return 0
+        }
         let tipSelection = Double(tipPercentages[tipPercentage])
         let orderAmount = Double(checkAmount) ?? 0
         let tipValue = orderAmount / 100 * tipSelection
